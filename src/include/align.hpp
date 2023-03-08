@@ -527,7 +527,8 @@ namespace psgl
         psgl::seqUtils::reverseComplement( readSet[readno], read_reverse); 
 
         readSet_P1.push_back (readSet[readno]);
-        readSet_P1.push_back (read_reverse);
+        readSet_P1.push_back (readSet[readno]);
+        // readSet_P1.push_back (read_reverse);
 
         if (readSet[readno].length() > maxReadLength)
           maxReadLength = readSet[readno].length();
@@ -604,7 +605,7 @@ namespace psgl
         else
         {
           outputBestScoreVector.push_back (bestScoreVector_P1[2 * readno + 1]);
-          outputBestScoreVector[readno].strand = '-';
+          outputBestScoreVector[readno].strand = '+';
 
           std::string read_reverse (readSet_P1[2 * readno + 1]);
           psgl::seqUtils::reverse( readSet_P1[2 * readno + 1], read_reverse); 
