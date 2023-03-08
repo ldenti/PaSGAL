@@ -733,6 +733,16 @@ namespace psgl
 
       for(auto &e : outputBestScoreVector)
       {
+        std::vector<uint> path;
+        std::string path_str = "";
+        path.push_back(graph.originalVertexId[e.refColumnStart].first);
+        path_str += std::to_string(path.back());
+        for(int i=e.refColumnStart+1; i<=e.refColumnEnd; ++i) {
+          if (graph.originalVertexId[i].first != path.back()) {
+            path.push_back(graph.originalVertexId[i].first);
+            path_str += "-" + std::to_string(path.back());
+          }
+        }
         outstrm << qmetadata[e.qryId].name << "\t" 
           << qmetadata[e.qryId].len << "\t"
           << e.qryRowStart << "\t" 
@@ -741,7 +751,8 @@ namespace psgl
           << graph.originalVertexId[e.refColumnStart] << "\t"
           << graph.originalVertexId[e.refColumnEnd] << "\t"
           << e.score << "\t"
-          << e.cigar << "\n";
+          << e.cigar << "\t"
+          << path_str << "\n";
       }
     }
 
