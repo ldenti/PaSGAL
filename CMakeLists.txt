@@ -109,7 +109,7 @@ set(PROTOBUF_DIR CACHE STRING "absolute path to protobuf installation directory"
 
 # The variables below are set based on PROTOBUF_DIR
 set(PROTOBUF_INCLUDE_DIR "${PROTOBUF_DIR}/include")
-set(PROTOBUF_LIBRARY "${PROTOBUF_DIR}/lib/libprotobuf.so")
+set(PROTOBUF_LIBRARY "${PROTOBUF_DIR}/lib/x86_64-linux-gnu/libprotobuf.so")
 set(PROTOBUF_PROTOC_EXECUTABLE "${PROTOBUF_DIR}/bin/protoc")
 
 if(EXISTS "${PROTOBUF_INCLUDE_DIR}" AND EXISTS "${PROTOBUF_LIBRARY}" AND EXISTS "${PROTOBUF_PROTOC_EXECUTABLE}")
