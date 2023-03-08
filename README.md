@@ -19,14 +19,16 @@ PaSGAL (**Pa**rallel **S**equence to **G**raph **Al**igner) is designed to accel
 The repository and external submodules can be downloaded using the recursive clone.
 
 ```sh
-git clone --recursive <GITHUB_URL>
+git clone --recursive https://github.com/ldenti/PaSGAL.git
 ```
 
 Next, compile the code using cmake utility:
 
 ```sh
-mkdir build_directory && cd build_directory
-cmake <OPTIONS> ../PaSGAL
+cd PaSGAL
+mkdir build ; cd build
+sudo apt install libbz2-dev liblzma-dev protobuf-compiler libprotobuf-dev
+cmake -DPROTOBUF_DIR=/usr -DSIMD_SUPPORT=avx2 ..
 make -j4
 ```
 
