@@ -8,6 +8,7 @@
 #define PSGL_BASETYPES_HPP
 
 #include <immintrin.h>
+#include <vector>
 
 #define psgl_max(a,b) (((a)>(b))?(a):(b))
 #define ASSUMED_CPU_FREQ 2100000000
@@ -60,6 +61,7 @@ namespace psgl
     //these are 0-based offsets
     int32_t refColumnStart;
     int32_t refColumnEnd;
+    std::vector<int32_t> refColumns;
 
     int32_t qryRowStart;
     int32_t qryRowEnd;

@@ -367,6 +367,7 @@ namespace psgl
         //
 
         std::string cigar;
+        std::vector<int32_t> used_cols;
 
         {
           auto tick1 = __rdtsc();
@@ -379,6 +380,7 @@ namespace psgl
 
           while (col >= 0 && row >= 0)
           {
+            used_cols.push_back(col + j0); // CHECKME
             if (currentRowScores[col] <= 0)
               break;
 
@@ -470,7 +472,8 @@ namespace psgl
           assert ( psgl::seqUtils::cigarScore (cigar, parameters) ==  bestScoreVector[readno].score );
 
           bestScoreVector[readno].cigar = cigar;
-
+          std::reverse(used_cols.begin(), used_cols.end());
+          bestScoreVector[readno].refColumns = used_cols;
           auto tick2 = __rdtsc();
           time_p2_2 = tick2 - tick1;
         }
@@ -737,10 +740,12 @@ namespace psgl
         std::string path_str = "";
         path.push_back(graph.originalVertexId[e.refColumnStart].first);
         path_str += std::to_string(path.back());
-        for(int i=e.refColumnStart+1; i<=e.refColumnEnd; ++i) {
-          if (graph.originalVertexId[i].first != path.back()) {
-            path.push_back(graph.originalVertexId[i].first);
-            path_str += "-" + std::to_string(path.back());
+        for(const int32_t c : e.refColumns) {
+          if (c >= e.refColumnStart && c <= e.refColumnEnd) {
+            int32_t n = graph.originalVertexId[c].first;
+            if (n != path.back()) {
+              path.push_back(n);
+              path_str += "-" + std::to_string(path.back());
           }
         }
         outstrm << qmetadata[e.qryId].name << "\t" 
