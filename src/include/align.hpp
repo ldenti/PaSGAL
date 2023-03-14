@@ -746,6 +746,7 @@ namespace psgl
             if (n != path.back()) {
               path.push_back(n);
               path_str += "-" + std::to_string(path.back());
+            }
           }
         }
         outstrm << qmetadata[e.qryId].name << "\t" 
